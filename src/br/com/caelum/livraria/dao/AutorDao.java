@@ -47,9 +47,9 @@ public class AutorDao {
 		System.out.println("AutorDao foi criado");
 	}
 
-//	@TransactionAttribute(TransactionAttributeType.REQUIRED) // Define o padrão de configuração de transações
+	@TransactionAttribute(TransactionAttributeType.REQUIRED) // Define o padrão de configuração de transações
 //	@TransactionAttribute(TransactionAttributeType.MANDATORY) // Está configuração exige que haja uma transação aberta
-	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW) // Suspende uma transação aberta e abre uma nova
+//	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW) // Suspende uma transação aberta e abre uma nova
 	public void salva(Autor autor) {
 		
 		System.out.println("Salvando o autor: " + autor.getNome());
@@ -64,6 +64,9 @@ public class AutorDao {
 		this.manager.persist(autor);
 		
 		System.out.println("Autor salvo: " + autor.getNome());
+		
+		// chamadaao ao service externo que gera um erro
+		throw new RuntimeException("Serviço externo deu erro!");
 	}
 	
 	public List<Autor> todosAutores() {

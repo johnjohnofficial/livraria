@@ -16,10 +16,13 @@ public class AutorService {
 	@Inject
 	private AutorDao dao;
 	
-	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+//	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void adiciona(Autor autor) {
+//	public void adiciona(Autor autor) throws LivrariaException {
 		this.dao.salva(autor);
-		throw new RuntimeException("[ERRO] Erro lançado para testar o rollback da transação.");
+		
+//		throw new RuntimeException("[ERRO] Erro lançado para testar o rollback da transação.");
+//		throw new LivrariaException(); // Gerando uma excesão de aplicação
 	}
 
 	public List<Autor> todosAutores() {

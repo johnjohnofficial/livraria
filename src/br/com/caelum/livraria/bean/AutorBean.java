@@ -24,6 +24,7 @@ public class AutorBean {
 		return autor;
 	}
 	
+//	public void cadastra() throws LivrariaException {
 	public void cadastra() {
 //		this.dao.salva(autor);
 		this.service.adiciona(autor);
