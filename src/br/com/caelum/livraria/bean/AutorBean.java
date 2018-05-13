@@ -14,19 +14,24 @@ public class AutorBean {
 	private Autor autor = new Autor();
 	// private AutorDao dao = new AutorDao();
 	
+//	@Inject
+//	private AutorDao dao;
+	
 	@Inject
-	private AutorDao dao;
+	private AutorService service;
 	
 	public Autor getAutor() {
 		return autor;
 	}
 	
 	public void cadastra() {
-		this.dao.salva(autor);
+//		this.dao.salva(autor);
+		this.service.adiciona(autor);
 		this.autor = new Autor();
 	}
 	
 	public List<Autor> getAutores() {
-		return this.dao.todosAutores();
+//		return this.dao.todosAutores();
+		return this.service.todosAutores();
 	}
 }

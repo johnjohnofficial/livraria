@@ -3,8 +3,13 @@ package br.com.caelum.livraria.dao;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.EJBTransactionRequiredException;
 import javax.ejb.Stateful;
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
+import javax.ejb.TransactionManagement;
+import javax.ejb.TransactionManagementType;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -16,9 +21,17 @@ import br.com.caelum.livraria.modelo.Autor;
  * Stateful(SBSF) => É um objeto exclusivo de um cliente, apenas um cliente usará este objeto.
  * 	O Session Bean Stateful (SBSF) tem uma funcionalidade muito parecida com a do objeto HttpSession: 
  * 	representa um objeto para o cliente. Ideal para guardar informações que só dizem respeito ao cliente.
+ * 
+ * ---
+ * 
+ * Anotando a class com @TransactionManagement(TransactionManagementType.CONTAINER)
+ * e o método @TransactionAttribute(TransactionAttributeType.REQUIRED) são opcionais uma vez que o 
+ * Container EJB já utiliza.
  */
-@Stateless
+
 //@Stateful
+@Stateless
+@TransactionManagement(TransactionManagementType.CONTAINER)	// Especifica explicitamente quem controla a transação é o container EJB.
 public class AutorDao {
 
 //	@Inject
@@ -34,6 +47,9 @@ public class AutorDao {
 		System.out.println("AutorDao foi criado");
 	}
 
+//	@TransactionAttribute(TransactionAttributeType.REQUIRED) // Define o padrão de configuração de transações
+//	@TransactionAttribute(TransactionAttributeType.MANDATORY) // Está configuração exige que haja uma transação aberta
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW) // Suspende uma transação aberta e abre uma nova
 	public void salva(Autor autor) {
 		
 		System.out.println("Salvando o autor: " + autor.getNome());
